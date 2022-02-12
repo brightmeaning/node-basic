@@ -1,5 +1,10 @@
 "use strict";
 
+const users = {
+    id: ["a", "b", "c"],
+    pw: ["aaa" , "bbb" , "ccc"],
+}
+
 const output = {
     home:  (req, res)=> {
         //res.send("home");
@@ -13,7 +18,22 @@ const output = {
 
 const proc = {
     login: (req, res) =>{
-        console.log(req.body);
+        //console.log(req.body);
+        const id = req.body.id,
+        pw = req.body.pw;
+
+        if(users.id.includes(id)){
+            const idx = users.id.indexOf(id);
+            if(users.pw[idx] === pw){
+                return res.json({
+                    success: true,
+                })
+            }
+        }
+        return res.json({
+            success: false,
+            msg: "login failed",
+        });
     },
 }
 

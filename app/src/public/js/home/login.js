@@ -18,12 +18,24 @@ function login(){
             id: id.value,
             pw: pw.value,
         };
-        console.log("@@@"+JSON.stringify(req));
+        
     fetch("/login", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify(req),
+    })
+    .then((res) => res.json())
+    .then((res) => {
+        // ui measage
+        if(res.success){
+            location.href ="/home";
+        }else{
+            alert(res.msg);
+        }
+    })
+    .catch((err) => {
+        console.error(new Error("login error"));
     });
 };
